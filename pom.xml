@@ -8,6 +8,15 @@
     <artifactId>airStatsCLI</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
