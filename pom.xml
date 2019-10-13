@@ -19,6 +19,12 @@
             <artifactId>spring-boot-cli</artifactId>
             <version>RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20190722</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 
