@@ -1,17 +1,16 @@
 package core;
 
-import utils.ReadUserInput;
+import core.isolatotion.UserIsolatorProcess;
 
 public class EntryPoint {
 
     public void start() {
-        readPath();
-
+        startIsolateProcess();
     }
 
-    private void readPath() {
-        ReadUserInput readUserInput = new ReadUserInput();
-        String folderPath = readUserInput.readUserConsoleInput();
+    private void startIsolateProcess() {
+        UserIsolatorProcess userIsolatorProcess = new UserIsolatorProcess();
+        userIsolatorProcess.startIsolation();
     }
 
 
