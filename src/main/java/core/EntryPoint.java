@@ -1,3 +1,5 @@
+package core;
+
 import utils.ReadUserInput;
 
 public class EntryPoint {

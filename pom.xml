@@ -18,7 +18,7 @@
                     <archive>
                         <index>true</index>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>core.Main</mainClass>
                             <addClasspath>true</addClasspath>
                         </manifest>
                         <manifestEntries>
