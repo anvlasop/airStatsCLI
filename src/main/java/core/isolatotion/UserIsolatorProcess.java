@@ -3,11 +3,14 @@ package core.isolatotion;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONString;
 import utils.PathReader;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,17 +34,18 @@ public class UserIsolatorProcess {
         fileList.stream().forEach(file -> {
             try {
                 String fileName = file.getName();
-                Integer userId = Integer.parseInt(fileName.split(".")[0]);
-                List<String> linesOfFileContent = Files.readAllLines(file.toPath());
-                String purchases = "";
-                StringUtils.join(linesOfFileContent, purchases);
-                JSONObject jsonObject = new JSONObject(purchases);
+                //below have problem
+                Integer userId = Integer.parseInt(fileName.split("\\.")[0]);
+                StringBuilder stringBuilder = new StringBuilder();
+                Files.lines( Paths.get(file.getPath()), StandardCharsets.UTF_8).forEach(s ->
+                        stringBuilder.append(s).append("\n"));
+                JSONObject jsonObject = new JSONObject(stringBuilder.toString());
                 //Continue here below:
-                //ObjectMapper mapper = new ObjectMapper();
+
 
             } catch (IOException e) {
                 System.out.println("Error occurred during reading file.");
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 System.out.println("Error while trying to parse file.");
             }
 
