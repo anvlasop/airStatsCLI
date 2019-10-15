@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class UserIsolatorProcess {
     public void startIsolation() {
@@ -27,7 +25,7 @@ public class UserIsolatorProcess {
 
     private void extractUserDataFromFile(File path) {
 
-        ArrayList<UserPurchases> purchasesPerUserList = new ArrayList<>();
+        HashMap<Long, Purchases> purchasesPerUser = new HashMap<>();
         File[] files = path.listFiles();
         List<File> fileList = Arrays.asList(files);
         fileList.forEach(file -> {
@@ -38,8 +36,8 @@ public class UserIsolatorProcess {
                 Files.lines( Paths.get(file.getPath()), StandardCharsets.UTF_8).forEach(s ->
                         stringBuilder.append(s));
 
-                UserPurchases userPurchases = getUserPurchases(userId, stringBuilder);
-                purchasesPerUserList.add(userPurchases);
+                Purchases purchases = extractPurchases(stringBuilder);
+                purchasesPerUser.put(userId, purchases);
             } catch (IOException e) {
                 System.out.println("Error occurred during reading file.");
             } catch (Exception e) {
@@ -51,14 +49,11 @@ public class UserIsolatorProcess {
 
     }
 
-    private UserPurchases getUserPurchases(Long userId, StringBuilder stringBuilder) throws com.fasterxml.jackson.core.JsonProcessingException {
+    private Purchases extractPurchases(StringBuilder stringBuilder) throws com.fasterxml.jackson.core.JsonProcessingException {
         String userPurchasesString = stringBuilder.toString();
         ObjectMapper mapper = new ObjectMapper();
         Purchases purchases = mapper.readValue(userPurchasesString, Purchases.class);
-        UserPurchases userPurchases = new UserPurchases();
-        userPurchases.setPurchases(purchases);
-        userPurchases.setUserId(userId);
-        return userPurchases;
+        return purchases;
     }
 
 

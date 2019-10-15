@@ -1,24 +1,15 @@
 package core.isolatotion;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Purchases {
-    private Long userId;
-    private ArrayList<Purchase> userPurchases;
+    private List<Purchase> purchases;
 
-    public Long getUserId() {
-        return userId;
+    public List<Purchase> getPurchases() {
+        return purchases;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public ArrayList<Purchase> getPurchases() {
-        return userPurchases;
-    }
-
-    public void setPurchases(ArrayList<Purchase> userPurchases) {
-        this.userPurchases = userPurchases;
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
     }
 }
