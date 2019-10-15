@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.*;
 
 public class UserIsolatorProcess {
@@ -19,11 +20,11 @@ public class UserIsolatorProcess {
             System.out.printf("The given path does not belong to a directory. \n" +
                     "Run this program again and define the right path");
         } else {
-            extractUserDataFromFile(path);
+            extractUsersDataFromFile(path);
         }
     }
 
-    private void extractUserDataFromFile(File path) {
+    private HashMap<Long, Purchases> extractUsersDataFromFile(File path) {
 
         HashMap<Long, Purchases> purchasesPerUser = new HashMap<>();
         File[] files = path.listFiles();
@@ -38,14 +39,14 @@ public class UserIsolatorProcess {
 
                 Purchases purchases = extractPurchases(stringBuilder);
                 purchasesPerUser.put(userId, purchases);
+            } catch (NumberFormatException e) {
+                System.out.println("The file '" + file.getName() + "' is not well named.");
             } catch (IOException e) {
                 System.out.println("Error occurred during reading file.");
-            } catch (Exception e) {
-                System.out.println("Error while trying to parse file.");
             }
-
-            System.out.println("ce fini!");
         });
+
+        return purchasesPerUser;
 
     }
 
