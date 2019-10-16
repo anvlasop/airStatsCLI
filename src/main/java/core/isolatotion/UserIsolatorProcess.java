@@ -9,8 +9,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserIsolatorProcess {
 
@@ -26,7 +28,12 @@ public class UserIsolatorProcess {
         } else {
             extractUsersDataFromFile(path);
             purchasesPerUser.forEach((aLong, purchases) -> {
-                purchases.getPurchases().stream();
+                purchases.getPurchases().stream().mapToDouble(purchase -> {
+                    if (purchase.getType().equals("airline")){
+                        return Double.parseDouble(purchase.getAmount());
+                    }
+                    return 0D;
+                });
             });
 
             System.out.println("sdf");
