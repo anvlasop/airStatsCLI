@@ -11,9 +11,11 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.OptionalDouble;
 
 public class UserIsolatorProcess {
 
+    private static final String TYPE_AIRLINE = "airline";
     private HashMap<Long, Purchases> purchasesPerUser;
 
     public void startIsolation() {
@@ -26,8 +28,13 @@ public class UserIsolatorProcess {
         } else {
             extractUsersDataFromFile(path);
             purchasesPerUser.forEach((aLong, purchases) -> {
-                purchases.getPurchases().stream().filter(purchase -> purchase.getType().equals("airline")).mapToDouble(purchase -> Float.parseFloat(purchase.getAmount())).min();
-                purchases.getPurchases().stream().filter(purchase -> purchase.getType().equals("airline")).mapToDouble(purchase -> Float.parseFloat(purchase.getAmount())).max();
+                OptionalDouble minAmount = purchases.getPurchases().stream().filter(purchase -> purchase.getType().equals(TYPE_AIRLINE)).mapToDouble(purchase -> Float.parseFloat(purchase.getAmount())).min();
+                OptionalDouble maxAmount = purchases.getPurchases().stream().filter(purchase -> purchase.getType().equals(TYPE_AIRLINE)).mapToDouble(purchase -> Float.parseFloat(purchase.getAmount())).max();
+                OptionalDouble averageAmount = purchases.getPurchases().stream().filter(purchase -> purchase.getType().equals(TYPE_AIRLINE)).mapToDouble(purchase -> Float.parseFloat(purchase.getAmount())).average();
+                System.out.println(aLong);
+                System.out.println(minAmount);
+                System.out.println(maxAmount);
+                System.out.println(averageAmount);
             });
 
             System.out.println("sdf");
