@@ -32,8 +32,8 @@ public class UserIsolatorProcess {
                     if (purchase.getType().equals("airline")){
                         return Double.parseDouble(purchase.getAmount());
                     }
-                    return 0D;
-                });
+                    return -1D;
+                }).filter(value -> value != -1D).min();
             });
 
             System.out.println("sdf");
