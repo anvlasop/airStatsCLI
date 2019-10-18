@@ -24,6 +24,7 @@ public class UserIsolatorProcess {
         if (!isDirectory) {
             System.out.println("The given path does not belong to a directory. \n" +
                     "Run this program again and define the right path");
+            return;
         } else {
             extractUsersDataFromFile(path);
             purchasesPerUser.forEach((aLong, purchases) -> {
@@ -32,8 +33,8 @@ public class UserIsolatorProcess {
                 //Continue below
                 System.out.println("fini");
             });
-
         }
+
     }
 
     private void extractUsersDataFromFile(File path) {
