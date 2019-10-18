@@ -15,7 +15,7 @@ public class UserIsolatorProcess {
 
     private static final String TYPE_AIRLINE = "airline";
     private HashMap<Long, Purchases> purchasesPerUser;
-    HashMap<Long, List<Purchase>> filteredPurchasesPerUser = new HashMap<>();
+    HashMap<Long, List<Purchase>> airlinePurchasesPerUser = new HashMap<>();
 
     public void startIsolation() {
         PathReader pathReader = new PathReader();
@@ -28,7 +28,8 @@ public class UserIsolatorProcess {
             extractUsersDataFromFile(path);
             purchasesPerUser.forEach((aLong, purchases) -> {
                 List<Purchase> purchasesList =  purchases.getPurchases().stream().filter(purchase -> purchase.getType().equals(TYPE_AIRLINE)).collect(Collectors.toList());
-                filteredPurchasesPerUser.put(aLong, purchasesList);
+                airlinePurchasesPerUser.put(aLong, purchasesList);
+                //Continue below
                 System.out.println("fini");
             });
 
