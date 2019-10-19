@@ -1,6 +1,7 @@
 package core.isolatotion;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import core.anonymization.AnonymizationProcess;
 import utils.PathReader;
 
 import java.io.File;
@@ -15,6 +16,7 @@ public class UserIsolatorProcess {
 
     private static final String AIRLINE_PURCHASE_TYPE = "airline";
     private HashMap<Long, Purchases> allPurchasesPerUser;
+    private AnonymizationProcess anonymizationProcess = new AnonymizationProcess();
     /**
      * The key of this Map represents user id as extracted
       */
@@ -35,7 +37,8 @@ public class UserIsolatorProcess {
                         purchase.getType().equals(AIRLINE_PURCHASE_TYPE)).collect(Collectors.toList());
                 airlinePurchasesPerUser.put(userId, purchasesList);
             });
-//            airlinePurchasesPerUser.forEach();
+
+            anonymizationProcess.collectAllAmounts(airlinePurchasesPerUser);
         }
 
     }
@@ -50,7 +53,7 @@ public class UserIsolatorProcess {
                 String fileName = file.getName();
                 Long userId = Long.parseLong(fileName.split("\\.")[0]);
                 StringBuilder stringBuilder = new StringBuilder();
-                Files.lines( Paths.get(file.getPath()), StandardCharsets.UTF_8).forEach(s -> stringBuilder.append(s));
+                Files.lines( Paths.get(file.getPath()), StandardCharsets.UTF_8).forEach(stringBuilder::append);
 
                 Purchases purchases = extractPurchases(stringBuilder);
                 allPurchasesPerUser.put(userId, purchases);
