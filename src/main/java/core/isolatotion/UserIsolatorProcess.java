@@ -13,9 +13,12 @@ import java.util.stream.Collectors;
 
 public class UserIsolatorProcess {
 
-    private static final String TYPE_AIRLINE = "airline";
-    private HashMap<Long, Purchases> purchasesPerUser;
-    HashMap<Long, List<Purchase>> airlinePurchasesPerUser = new HashMap<>();
+    private static final String AIRLINE_PURCHASE_TYPE = "airline";
+    private HashMap<Long, Purchases> allPurchasesPerUser;
+    /**
+     * The key of this Map represents user id as extracted
+      */
+    private HashMap<Long, List<Purchase>> airlinePurchasesPerUser = new HashMap<>();
 
     public void startIsolation() {
         PathReader pathReader = new PathReader();
@@ -27,19 +30,19 @@ public class UserIsolatorProcess {
             return;
         } else {
             extractUsersDataFromFile(path);
-            purchasesPerUser.forEach((aLong, purchases) -> {
-                List<Purchase> purchasesList =  purchases.getPurchases().stream().filter(purchase -> purchase.getType().equals(TYPE_AIRLINE)).collect(Collectors.toList());
-                airlinePurchasesPerUser.put(aLong, purchasesList);
-                //Continue below
-                System.out.println("fini");
+            allPurchasesPerUser.forEach((userId, purchases) -> {
+                List<Purchase> purchasesList =  purchases.getPurchases().stream().filter(purchase ->
+                        purchase.getType().equals(AIRLINE_PURCHASE_TYPE)).collect(Collectors.toList());
+                airlinePurchasesPerUser.put(userId, purchasesList);
             });
+//            airlinePurchasesPerUser.forEach();
         }
 
     }
 
     private void extractUsersDataFromFile(File path) {
 
-        purchasesPerUser = new HashMap<>();
+        allPurchasesPerUser = new HashMap<>();
         File[] files = path.listFiles();
         List<File> fileList = Arrays.asList(files);
         fileList.forEach(file -> {
@@ -50,7 +53,7 @@ public class UserIsolatorProcess {
                 Files.lines( Paths.get(file.getPath()), StandardCharsets.UTF_8).forEach(s -> stringBuilder.append(s));
 
                 Purchases purchases = extractPurchases(stringBuilder);
-                purchasesPerUser.put(userId, purchases);
+                allPurchasesPerUser.put(userId, purchases);
             } catch (NumberFormatException e) {
                 System.out.println("The file '" + file.getName() + "' is not well named.");
             } catch (IOException e) {
