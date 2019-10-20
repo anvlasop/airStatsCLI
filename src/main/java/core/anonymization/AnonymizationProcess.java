@@ -23,11 +23,18 @@ public class AnonymizationProcess {
         extractStatisticalResults(amountCountMap.keySet());
     }
 
-    private void reportStatisticalResults(Float minAmount, Float maxAmount, Double averageAmount, Float medianAmount) {
-        System.out.println("min: " + minAmount);
-        System.out.println("max: " + maxAmount);
-        System.out.println("average: " + averageAmount);
-        System.out.println("median:" + medianAmount);
+    private void reportAnonymizedCalculations(Map<Float,Long> amountCountMap) {
+        amountCountMap.forEach((amount, count) -> System.out.println("| Airline purchase | " + amount + " | " + count + " |"));
+    }
+
+    private void extractStatisticalResults(Set<Float> amounts) {
+        Float minAmount = Collections.min(amounts);
+        Float maxAmount = Collections.max(amounts);
+        Double averageAmount = extractAverage(amounts);
+        Float medianAmount = calculateMedianAmount(amounts);
+
+        reportStatisticalResults(minAmount, maxAmount, averageAmount, medianAmount);
+
     }
 
     private Double extractAverage(Set<Float> amounts) {
@@ -42,28 +49,19 @@ public class AnonymizationProcess {
         if (amountList.size() % 2 != 0) {
             int indexOfMedian = (int) Math.floor(halfSize);
             return (amountList.get(indexOfMedian));
-         } else {
+        } else {
             int leftIndex = (int) Math.floor(halfSize);
             int rightIndex = (int) Math.ceil(halfSize);
             return ( amountList.get(leftIndex) + amountList.get(rightIndex) ) / 2;
 
-         }
+        }
 
     }
 
-    private void extractStatisticalResults(Set<Float> amounts) {
-        Float minAmount = Collections.min(amounts);
-        Float maxAmount = Collections.max(amounts);
-        Double averageAmount = extractAverage(amounts);
-        Float medianAmount = calculateMedianAmount(amounts);
-
-        reportStatisticalResults(minAmount, maxAmount, averageAmount, medianAmount);
-
+    private void reportStatisticalResults(Float minAmount, Float maxAmount, Double averageAmount, Float medianAmount) {
+        System.out.println("min: " + minAmount);
+        System.out.println("max: " + maxAmount);
+        System.out.println("average: " + averageAmount);
+        System.out.println("median:" + medianAmount);
     }
-
-    private void reportAnonymizedCalculations(Map<Float,Long> amountCountMap) {
-        amountCountMap.forEach((amount, count) -> System.out.println("| Airline purchase | " + amount + " | " + count + " |"));
-    }
-
-
 }
