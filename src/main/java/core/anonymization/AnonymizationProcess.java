@@ -24,6 +24,7 @@ public class AnonymizationProcess {
     }
 
     private void reportAnonymizedCalculations(Map<Float,Long> amountCountMap) {
+        System.out.println("| key              |" + " value   |" + " count |");
         amountCountMap.forEach((amount, count) -> System.out.println("| Airline purchase | " + amount + " | " + count + " |"));
     }
 
