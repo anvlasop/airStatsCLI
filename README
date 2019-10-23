@@ -2,7 +2,7 @@ About
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 This is command line program that reads all user files from provided folder.
-It reports statistical results about airline purchases.
+It reports statistical results about airline purchaseList.
 Files' names should be integer numbers that represent user id.
 Desired results will be printed in command line interface.
 
