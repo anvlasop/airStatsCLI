@@ -65,7 +65,7 @@ public class UserIsolatorProcess {
         });
     }
 
-    private Purchases extractPurchases(StringBuilder stringBuilder) throws com.fasterxml.jackson.core.JsonProcessingException {
+    private Purchases extractPurchases(StringBuilder stringBuilder) throws IOException {
         String userPurchasesString = stringBuilder.toString();
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(userPurchasesString, Purchases.class);
