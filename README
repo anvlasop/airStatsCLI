@@ -1,0 +1,54 @@
+About
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+This is command line program that reads all user files from provided folder.
+It reports statistical results about airline purchases.
+Files' names should be integer numbers that represent user id.
+Desired results will be printed in command line interface.
+
+
+
+Instructions on how to run this program
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Prerequisites:
+- Windows 7 or later
+- Java 8 or later
+- A command line interface (like Windows CMD)
+
+Steps to run the program:
+1) Open command line interface.
+
+2) Run airStat.jar file using cli command below:
+   "{folder of Java installation}\jdk1.8.0\bin\java.exe" -Dfile.encoding=windows-1253 -jar "{absolute path of jar file}"
+
+   Here lays an example of this command:
+   "C:\Program Files\Java\jdk1.8.0\bin\java.exe" -Dfile.encoding=windows-1253 -jar "C:\Users\user\Desktop\Aircloak test\implementation\airStatsCLI\dist\airStats.jar"
+
+3) Provide folder's absolute path, as it will be asked.
+
+
+
+Program results
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+| key              | value   | count |
+--------------------------------------
+| Airline purchase | 150.0   | 10    |
+| Airline purchase | 10000.0 | 520   |
+
+min: 150.0
+max: 10000.0
+average: 5075.0
+median:10000.0
+
+
+
+Explanation of taken approach
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Approach that used for this project most simple.
+Just created command line program that prints the results in console, so to be simple to run.
+
+
+
